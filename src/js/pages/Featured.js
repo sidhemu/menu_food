@@ -1,23 +1,29 @@
 import React from "react";
 import { Link } from "react-router";
+import Request from "superagent";
+import _ from "lodash";
 
 import { Card, CardImg, CardText, CardBlock, CardTitle, CardSubtitle, Button } from 'reactstrap';
 require('../../css/main.css');
 
 export default class Featured extends React.Component {
-    componentDidMount(){
-      $.ajax({
-        url: "http://ec2-54-165-240-14.compute-1.amazonaws.com:3000/api/foodItem"
-      }).then(function(data) {
-          this.setState({
-              foodId  : data.food_item_id,
-              foodName: data.food_item_name,
-              foodImg : data.food_item_pic,
-              foodPrice: data.food_item_price
-          });
-      }
-  )}
+  constructor(){
+    super();
+    this.state = { }
+  }
+  componentWillMount(){
+    var url = 'http://ec2-54-165-240-14.compute-1.amazonaws.com:3000/api/foodItem';
+    Request.get(url).then((response) => {
+      this.setState({
+        foodName: response.body
+      })
+    })
+
+  }
+
   render() {
+    console.log(this.state.foodName);
+    var food = _.map()
     return(
       <div className="container">
         <div className="row">
