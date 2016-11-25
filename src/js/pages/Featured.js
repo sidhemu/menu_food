@@ -15,15 +15,20 @@ export default class Featured extends React.Component {
     var url = 'http://ec2-54-165-240-14.compute-1.amazonaws.com:3000/api/foodItem';
     Request.get(url).then((response) => {
       this.setState({
-        foodName: response.body
+        foodinfo: response.text
       })
     })
 
   }
-
   render() {
-    console.log(this.state.foodName);
-    var food = _.map()
+      console.log(this.state.foodinfo);
+        var canvases = this.state.foodinfo.map(function(data) {
+         return (
+           <div>
+              <p>{data.food_item_name}</p>
+           </div>
+         );
+       });
     return(
       <div className="container">
         <div className="row">
@@ -45,6 +50,8 @@ export default class Featured extends React.Component {
               <span class="glyphicon glyphicon-plus-sign btnClass"></span>
             </CardBlock>
           </Card>
+
+          <div>{canvases}</div>
         </div>
       </div>
     )
