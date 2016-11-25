@@ -21,11 +21,11 @@ export default class Featured extends React.Component {
   }
 
   render() {
-        console.log(this.state.foodinfo);
-        var canvases = this.state.foodinfo.map(function(data) {
+        console.log("filter work in progress");
+        var canvases = this.state.foodinfo.filter(item => item.food_group_id=== 'eb9fa7e9-3dc9-11e6-a9f9-28e347').map(function(data) {
          return (
            <div>
-           <Card className="col-xs-12 col-sm-4 eachCard">
+           <Card  className="col-xs-12 col-sm-4 eachCard">
              <CardImg top width="100%" src={data.food_item_pic} alt="Card image cap" />
              <CardBlock className="cardBlock">
                <CardTitle>{data.food_item_name}</CardTitle>
@@ -39,10 +39,7 @@ export default class Featured extends React.Component {
     return(
       <div className="container">
         <div className="row">
-          <h1>Featured</h1>
-
-
-          <div>{canvases}</div>
+            <div>{canvases}</div>
         </div>
       </div>
     )
