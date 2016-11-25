@@ -9,23 +9,30 @@ require('../../css/main.css');
 export default class Featured extends React.Component {
   constructor(){
     super();
-    this.state = { }
+    this.state = { foodinfo: [] }
   }
   componentWillMount(){
     var url = 'http://ec2-54-165-240-14.compute-1.amazonaws.com:3000/api/foodItem';
     Request.get(url).then((response) => {
       this.setState({
-        foodinfo: response.text
+        foodinfo: response.body
       })
     })
-
   }
+
   render() {
-      console.log(this.state.foodinfo);
+        console.log(this.state.foodinfo);
         var canvases = this.state.foodinfo.map(function(data) {
          return (
            <div>
-              <p>{data.food_item_name}</p>
+           <Card className="col-xs-12 col-sm-4 eachCard">
+             <CardImg top width="100%" src={data.food_item_pic} alt="Card image cap" />
+             <CardBlock className="cardBlock">
+               <CardTitle>{data.food_item_name}</CardTitle>
+               <CardSubtitle>${data.food_item_price}</CardSubtitle>
+               <span class="glyphicon glyphicon-plus-sign btnClass"></span>
+             </CardBlock>
+           </Card>
            </div>
          );
        });
@@ -33,23 +40,7 @@ export default class Featured extends React.Component {
       <div className="container">
         <div className="row">
           <h1>Featured</h1>
-          <Card className="col-xs-12 col-sm-4 eachCard">
-            <CardImg top width="100%" src="https://tabletopmenu.s3-us-west-2.amazonaws.com/easyPie/Pasta.jpg?AWSAccessKeyId=AKIAJBLST2F5EFKIZGXQ&Expires=2079704677&Signature=eSjrIw32apC0gCGpF92%2FxgnELNA%3D" alt="Card image cap" />
-            <CardBlock className="cardBlock">
-              <CardTitle>Boom Boom Chicken</CardTitle>
-              <CardSubtitle>$8.50</CardSubtitle>
-              <span class="glyphicon glyphicon-plus-sign btnClass"></span>
-            </CardBlock>
-          </Card>
 
-          <Card className="col-xs-12 col-sm-4 eachCard">
-            <CardImg top width="100%" src="https://tabletopmenu.s3-us-west-2.amazonaws.com/easyPie/Pasta.jpg?AWSAccessKeyId=AKIAJBLST2F5EFKIZGXQ&Expires=2079704677&Signature=eSjrIw32apC0gCGpF92%2FxgnELNA%3D" alt="Card image cap" />
-            <CardBlock className="cardBlock">
-              <CardTitle>Boom Boom Chicken</CardTitle>
-              <CardSubtitle>$8.50</CardSubtitle>
-              <span class="glyphicon glyphicon-plus-sign btnClass"></span>
-            </CardBlock>
-          </Card>
 
           <div>{canvases}</div>
         </div>
